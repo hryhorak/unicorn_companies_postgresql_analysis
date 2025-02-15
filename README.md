@@ -49,6 +49,7 @@ ORDER BY "investment_return(in %)" DESC
 LIMIT 10;
 ~~~
 **OUTPUT:**
+
 ![image](https://github.com/user-attachments/assets/22e7b1af-a0db-4c75-b378-33c3579c9bb2)
 
 ## STEP 4
@@ -58,7 +59,8 @@ Next question: How long does it usually take for a company to become a unicorn?
 SELECT ROUND(AVG(date_joined - year_founding), 0) AS "avg_year"
 FROM fixed;
 ~~~
-**OUTPUT**
+**OUTPUT:**
+
 ![image](https://github.com/user-attachments/assets/1e4c1600-2cf0-45d1-a542-827da077f821)
 
 ## STEP 5
@@ -71,12 +73,13 @@ GROUP BY country
 ORDER BY unicorns_count DESC
 LIMIT 10;
 ~~~
-**OUTPUT**
+**OUTPUT:**
+
 ![image](https://github.com/user-attachments/assets/0f608901-3e47-4326-a099-4a9ad30a6fa8)
 
 ## STEP 6
 Last question: Which companies have the highest valuation in each industry?
-A nested query ~~~sql (SELECT MAX(valuation) ...)~~~ finds the largest valuation for each industry.
+A nested query ```sql (SELECT MAX(valuation) ...)``` finds the largest valuation for each industry.
 ~~~sql
 SELECT industry, company, valuation
 FROM fixed f1
@@ -86,5 +89,10 @@ WHERE valuation = (
 	WHERE f2.industry = f1.industry
 )
 ~~~
+**OUTPUT:**
 
+![image](https://github.com/user-attachments/assets/a0b25da6-3c33-4561-8b1a-e44b0bf34067)
+
+
+THANKS FOR WATCHING ♡
 
