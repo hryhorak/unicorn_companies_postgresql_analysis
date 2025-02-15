@@ -16,7 +16,7 @@ One table with next columns:
 
 ---
 ## STEP 1
-Icluding import .csv file and connect it to database in pgAdmin4.
+This step includes import .csv file and connect it to database in pgAdmin4.
 
 ## STEP 2
 This step includes cleaning, formatting and preparing the data for analysis. All the columns had a text data type, so I used the appropriate functions to change them to the appropriate ones.
@@ -79,7 +79,7 @@ LIMIT 10;
 
 ## STEP 6
 Last question: Which companies have the highest valuation in each industry?
-A nested query ```sql (SELECT MAX(valuation) ...)``` finds the largest valuation for each industry.
+A nested query ```(SELECT MAX(valuation) ...)``` finds the largest valuation for each industry.
 ~~~sql
 SELECT industry, company, valuation
 FROM fixed f1
@@ -94,5 +94,5 @@ WHERE valuation = (
 ![image](https://github.com/user-attachments/assets/a0b25da6-3c33-4561-8b1a-e44b0bf34067)
 
 
-THANKS FOR WATCHING ♡
+**THANKS FOR WATCHING ♡**
 
