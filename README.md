@@ -14,7 +14,8 @@ Private companies with a valuation over $1 billion as of March 2022, including e
 - Funding – Total Funding Raised
 
 ---
-STEP 1
+## STEP 1
+This step includes cleaning, formatting and preparing the data for analysis. All the columns had a text data type, so I used the appropriate functions to change them to the appropriate ones.
 
 ~~~sql
 WITH fixed AS (
