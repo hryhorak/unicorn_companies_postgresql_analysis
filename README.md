@@ -19,8 +19,11 @@ This step includes cleaning, formatting and preparing the data for analysis. All
 
 ~~~sql
 WITH fixed AS (
-SELECT company, LEFT(RIGHT(valuation, LENGTH(valuation) - 1), LENGTH(RIGHT(valuation, LENGTH(valuation) - 1)) - 1)::"numeric" * 1000000000 AS valuation,
+SELECT company,
+# remove **$** sign and **B**, converting to a numeric data type and multiplying by 1,000,000,000. 
+LEFT(RIGHT(valuation, LENGTH(valuation) - 1), LENGTH(RIGHT(valuation, LENGTH(valuation) - 1)) - 1)::"numeric" * 1000000000 AS valuation,
 EXTRACT(YEAR FROM date_joined::date) AS date_joined, industry, city, country, continent, year_founding::"numeric" AS year_founding,
+# column contained unknown, so I replaced it with 0, removed the $ and B/M, converted to a numeric data type, and multiplied by a million or a billion respectively.
 CASE 
 	WHEN funding = 'Unknown' THEN 0
 	WHEN funding LIKE '%B%' THEN LEFT(RIGHT(funding, LENGTH(funding) - 1), LENGTH(RIGHT(funding, LENGTH(funding) - 1)) - 1)::"numeric" * 1000000000
