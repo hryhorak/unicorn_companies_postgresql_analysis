@@ -16,7 +16,7 @@ Private companies with a valuation over $1 billion as of March 2022, including e
 ---
 STEP 1
 
-```
+~~~sql
 WITH fixed AS (
 SELECT company, LEFT(RIGHT(valuation, LENGTH(valuation) - 1), LENGTH(RIGHT(valuation, LENGTH(valuation) - 1)) - 1)::"numeric" * 1000000000 AS valuation,
 EXTRACT(YEAR FROM date_joined::date) AS date_joined, industry, city, country, continent, year_founding::"numeric" AS year_founding,
@@ -27,4 +27,4 @@ CASE
 END AS funding
 FROM unicors
 )
-```
+~~~
