@@ -3,6 +3,7 @@
 Private companies with a valuation over $1 billion as of March 2022, including each company's current valuation, funding, country of origin, industry, select investors, and the years they were founded and became unicorns.
 
 ## Data Definition:
+One table with next columns:
 - Company – Company Name
 - Valuation – Company Valuation
 - Date Joined – Date Company Achieved Unicorn Status
@@ -42,8 +43,48 @@ After data preparation, analysis can be performed. The first question: Which uni
 ~~~sql
 SELECT company,
 CASE WHEN funding = 0 OR valuation = 0 THEN 0
-	ELSE ROUND(valuation / funding * 100, 0) END AS "investment_return(in %)"
+     ELSE ROUND(valuation / funding * 100, 0) END AS "investment_return(in %)"
 FROM fixed
 ORDER BY "investment_return(in %)" DESC 
 LIMIT 10;
 ~~~
+**OUTPUT:**
+![image](https://github.com/user-attachments/assets/22e7b1af-a0db-4c75-b378-33c3579c9bb2)
+
+## STEP 4
+Next question: How long does it usually take for a company to become a unicorn?
+
+~~~sql
+SELECT ROUND(AVG(date_joined - year_founding), 0) AS "avg_year"
+FROM fixed;
+~~~
+**OUTPUT**
+![image](https://github.com/user-attachments/assets/1e4c1600-2cf0-45d1-a542-827da077f821)
+
+## STEP 5
+Question: Which countries have the most unicorns? 
+
+~~~sql
+SELECT country, COUNT(*) AS unicorns_count
+FROM fixed
+GROUP BY country
+ORDER BY unicorns_count DESC
+LIMIT 10;
+~~~
+**OUTPUT**
+![image](https://github.com/user-attachments/assets/0f608901-3e47-4326-a099-4a9ad30a6fa8)
+
+## STEP 6
+Last question: Which companies have the highest valuation in each industry?
+A nested query ~~~sql (SELECT MAX(valuation) ...)~~~ finds the largest valuation for each industry.
+~~~sql
+SELECT industry, company, valuation
+FROM fixed f1
+WHERE valuation = (
+	SELECT MAX(valuation)
+	FROM fixed f2
+	WHERE f2.industry = f1.industry
+)
+~~~
+
+
