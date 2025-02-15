@@ -15,6 +15,9 @@ Private companies with a valuation over $1 billion as of March 2022, including e
 
 ---
 ## STEP 1
+Icluding import .csv file and connect it to database in pgAdmin4.
+
+## STEP 2
 This step includes cleaning, formatting and preparing the data for analysis. All the columns had a text data type, so I used the appropriate functions to change them to the appropriate ones.
 
 ~~~sql
@@ -31,4 +34,16 @@ CASE
 END AS funding
 FROM unicors
 )
+~~~
+
+## STEP 3
+After data preparation, analysis can be performed. The first question: Which unicorn companies have had the biggest return on investment in %?
+
+~~~sql
+SELECT company,
+CASE WHEN funding = 0 OR valuation = 0 THEN 0
+	ELSE ROUND(valuation / funding * 100, 0) END AS "investment_return(in %)"
+FROM fixed
+ORDER BY "investment_return(in %)" DESC 
+LIMIT 10;
 ~~~
